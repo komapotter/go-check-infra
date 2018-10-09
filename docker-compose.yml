@@ -1,0 +1,31 @@
+version: '3.4'
+services:
+  web:
+    container_name: media-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:1323"
+    command: ["/usr/local/bin/go-check-infra"]
+    env_file: .env
+    links
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: media-db
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3306:3306"
+    volumes:
+      - test-db-data:/var/lib/mysql:cached
+
+volumes:
+  test-db-data:  

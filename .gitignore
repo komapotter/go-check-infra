@@ -1,0 +1,8 @@
+.tmp
+.swp
+.exe
+.test
+.prof
+.env
+vendor/
+.DS_Store
